@@ -42,7 +42,7 @@ pub fn init() -> Result<Option<WorkerGuard>> {
     warn!("tracing-warn");
     error!("tracing-error");
 
-    Some(_guard)
+    Ok(Some(_guard))
 }
 
 
