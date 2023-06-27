@@ -12,3 +12,4 @@ fn main() {
         
     info!("CU start !");
 }
+

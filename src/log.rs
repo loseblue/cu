@@ -2,7 +2,7 @@
 use chrono::Local;
 use std::io;
 
-use tracing::{error, warn, info, debug, trace, Level};
+use tracing::{Level};
 
 use tracing_appender::non_blocking::WorkerGuard;
 use tracing_subscriber::fmt::format::Writer;
@@ -35,12 +35,6 @@ pub fn init() -> Result<Option<WorkerGuard>> {
         .with_ansi(false)
         .event_format(format)
         .init();
-
-    trace!("tracing-trace");
-    debug!("tracing-debug");
-    info!("tracing-info");
-    warn!("tracing-warn");
-    error!("tracing-error");
 
     Ok(Some(_guard))
 }
