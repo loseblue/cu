@@ -4,8 +4,12 @@ use std::io;
 
 use tracing::{error, warn, info, debug, trace, Level};
 
+use tracing_appender::non_blocking::WorkerGuard;
 use tracing_subscriber::fmt::format::Writer;
 use tracing_subscriber::{self, fmt::time::FormatTime};
+
+use anyhow::{Result};
+
 
 
 struct LocalTimer;
@@ -15,7 +19,7 @@ impl FormatTime for LocalTimer {
     }
 }
 
-pub fn init() {
+pub fn init() -> Result<Option<WorkerGuard>> {
     let file_appender = tracing_appender::rolling::daily("/tmp", "cu.log");
     let (non_blocking, _guard) = tracing_appender::non_blocking(file_appender);
 
@@ -37,6 +41,8 @@ pub fn init() {
     info!("tracing-info");
     warn!("tracing-warn");
     error!("tracing-error");
+
+    Some(_guard)
 }
 
 

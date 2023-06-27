@@ -1,5 +1,5 @@
 
-use tracing::*;
+use tracing::{info};
 
 mod log;
 
@@ -8,9 +8,7 @@ mod log;
 fn main() {
     println!("CU start !");
 
-    log::init();
-
-    
-    trace!("tracing-trace");
-
+    let _guard = log::init();
+        
+    info!("CU start !");
 }
