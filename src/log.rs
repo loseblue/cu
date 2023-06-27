@@ -15,7 +15,7 @@ impl FormatTime for LocalTimer {
     }
 }
 
-fn main() {
+pub fn init() {
     let file_appender = tracing_appender::rolling::daily("/tmp", "cu.log");
     let (non_blocking, _guard) = tracing_appender::non_blocking(file_appender);
 
@@ -37,7 +37,6 @@ fn main() {
     info!("tracing-info");
     warn!("tracing-warn");
     error!("tracing-error");
-
 }
 
 
