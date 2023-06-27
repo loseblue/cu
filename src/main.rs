@@ -1,17 +1,17 @@
 
 use chrono::Local;
 use std::io;
-use tracing::{error, warn, info, debug, trace};
+
+use tracing::{error, warn, info, debug, trace, Level};
 
 use tracing_subscriber::fmt::format::Writer;
 use tracing_subscriber::{self, fmt::time::FormatTime};
 
 
 struct LocalTimer;
-
 impl FormatTime for LocalTimer {
     fn format_time(&self, w: &mut Writer<'_>) -> std::fmt::Result {
-        write!(w, "{}", Local::now().format("%F_%T%.3f"))
+        write!(w, "{}", Local::now().format("%F_%T%.6f"))
     }
 }
 
@@ -24,12 +24,13 @@ fn main() {
         .with_target(true)
         .with_timer(LocalTimer);
 
-     tracing_subscriber::fmt()
-         .with_writer(io::stdout) 
-         .with_writer(non_blocking) 
-         .with_ansi(false)
-         .event_format(format)
-         .init();
+    tracing_subscriber::fmt()
+        .with_max_level(Level::TRACE)
+        .with_writer(io::stdout) 
+        .with_writer(non_blocking) 
+        .with_ansi(false)
+        .event_format(format)
+        .init();
 
     trace!("tracing-trace");
     debug!("tracing-debug");
