@@ -13,7 +13,6 @@ fn main() {
 
     core::thread_init();
         
- 
 
     println!("CU end !");
 }
