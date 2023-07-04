@@ -1,0 +1,32 @@
+[package]
+name = "sctp-rs"
+version = "0.3.0"
+edition = "2018"
+description = "Idiomatic Rust APIs for Linux SCTP Stack."
+authors = [ "Abhijit Gadgil <gabhijit@iitbombay.org>"]
+categories = ["network-programming"]
+keywords = ["sctp"]
+readme = "README.md"
+repository = "https://github.com/gabhijit/ellora.git"
+license = "Apache-2.0 OR MIT"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+os_socketaddr = { version = "0.2" }
+libc = { version = "0.2" }
+tokio = { version = "1.0" , features = ["net", "macros", "rt"]}
+log = { version = "0.4" }
+
+[dev-dependencies]
+clap = "3"
+
+[[example]]
+name = "ping"
+path = "examples/src/ping.rs"
+
+
+[[example]]
+name = "pong"
+path = "examples/src/pong.rs"
+
