@@ -1,7 +1,7 @@
 
 use tracing::{info};
 mod log;
-mod core;
+mod threads;
 
 
 
@@ -11,8 +11,7 @@ fn main() {
 
     let _guard = log::init();
 
-    core::thread_init();
-        
+    threads::thread_init();
 
     println!("CU end !");
 }
