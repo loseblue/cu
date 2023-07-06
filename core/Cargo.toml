@@ -14,3 +14,4 @@ tracing-appender = "0.2.2"
 anyhow = "1.0.71"
 tokio = { version = "1.29.0", features = ["full"] }
 core_affinity = "0.8.0"
+sctp-rs = { path = "../sctp-rs" }

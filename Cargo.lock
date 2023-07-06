@@ -146,6 +146,7 @@ dependencies = [
  "anyhow",
  "chrono",
  "core_affinity",
+ "sctp-rs",
  "serde_json",
  "tokio",
  "tracing",
