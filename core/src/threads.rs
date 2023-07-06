@@ -3,7 +3,7 @@ use sctp_rs::{self};
 
 
 pub fn thread_init() {
-    let core_ids = core_affinity::get_core_ids().unwrap();
+    // let core_ids = core_affinity::get_core_ids().unwrap();
 
     let rt = runtime::Builder::new_multi_thread()
         .enable_all()
