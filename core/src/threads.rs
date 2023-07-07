@@ -24,7 +24,7 @@ async fn init_sctp_server_thread() -> std::io::Result<()> {
     tokio::spawn(async {
         println!("init_sctp_server_thread start !");
 
-        let server_address: std::net::SocketAddr = "127.0.0.1:38472".parse().unwrap();
+        let server_address: std::net::SocketAddr = "127.0.0.1:38412".parse().unwrap();
 
         let server_socket = sctp_rs::Socket::new_v4(sctp_rs::SocketToAssociation::OneToOne)?;
         server_socket.sctp_bindx(&[server_address], sctp_rs::BindxFlags::Add)?;
@@ -51,7 +51,7 @@ async fn init_sctp_server_thread() -> std::io::Result<()> {
 async fn init_sctp_client_thread() -> std::io::Result<()> {
     println!("init_sctp_client_thread start !");
 
-    let server_address: std::net::SocketAddr = "192.168.2.200:38472".parse().unwrap();
+    let server_address: std::net::SocketAddr = "192.168.2.200:38412".parse().unwrap();
 
     let client_socket = sctp_rs::Socket::new_v4(sctp_rs::SocketToAssociation::OneToOne)?;
 
