@@ -12,7 +12,7 @@ pub fn thread_init() {
 
     rt.block_on(async {
         init_sctp_server_thread().await;
-        init_sctp_client_thread().await;
+        // init_sctp_client_thread().await;
     });
 
     std::thread::sleep(std::time::Duration::from_millis(5100));
@@ -23,12 +23,19 @@ async fn init_sctp_server_thread() -> std::io::Result<()> {
         println!("init_sctp_server_thread start !");
 
         let server_address: std::net::SocketAddr = "127.0.0.1:38412".parse().unwrap();
+        println!("init_sctp_server_thread start 1!");
 
         let server_socket = sctp_rs::Socket::new_v4(sctp_rs::SocketToAssociation::OneToOne)?;
-        server_socket.sctp_bindx(&[server_address], sctp_rs::BindxFlags::Add)?;
-        let server_socket = server_socket.listen(100)?;
-        let (accepted, _client_address) = server_socket.accept().await?;
+        println!("init_sctp_server_thread start 2!");
 
+        server_socket.sctp_bindx(&[server_address], sctp_rs::BindxFlags::Add)?;
+        println!("init_sctp_server_thread start 3!");
+
+        let server_socket = server_socket.listen(10)?;
+        println!("init_sctp_server_thread start 4!");
+
+        let (accepted, _client_address) = server_socket.accept().await?;
+        println!("init_sctp_server_thread start 2 !");
         loop {
             let received = accepted.sctp_recv().await?;
             match received {
