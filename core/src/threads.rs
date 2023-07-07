@@ -11,9 +11,7 @@ pub fn thread_init() {
         .unwrap();
 
     rt.block_on(async {
-        println!("a init_sctp_server_thread start !");
         init_sctp_server_thread().await;
-        println!("a init_sctp_client_thread start !");
         init_sctp_client_thread().await;
     });
 
@@ -33,14 +31,16 @@ async fn init_sctp_server_thread() -> std::io::Result<()> {
 
         loop {
             let received = accepted.sctp_recv().await?;
-            // match received {
-            //     sctp_rs::NotificationOrData::Notification(notification)=> {
-            //         // Porcess Notification
-            //     },
-            //     sctp_rs::NotificationOrData::Data(data) => {
-            //         // Process Data
-            //     }
-            // }
+            match received {
+                sctp_rs::NotificationOrData::Notification(notification)=> {
+                    println!("SCTP Server received Notification!");
+                    // Porcess Notification
+                },
+                sctp_rs::NotificationOrData::Data(data) => {
+                    println!("SCTP Server received Data!");
+                    // Process Data
+                }
+            }
             println!("init_sctp_server_thread end !");
         }
         Ok::<(), Error>(())
@@ -66,6 +66,5 @@ async fn init_sctp_client_thread() -> std::io::Result<()> {
         };
         connected.sctp_send(send_data).await?;
     }
-    println!("init_sctp_client_thread end !");
     Ok::<(), Error>(())
 }
