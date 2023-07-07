@@ -11,11 +11,9 @@ pub fn thread_init() {
         .unwrap();
 
     rt.block_on(async {
-        init_sctp_server_thread().await;
-        // init_sctp_client_thread().await;
+        let _ = init_sctp_server_thread().await;
+        // let _ = iinit_sctp_client_thread().await;
     });
-
-    std::thread::sleep(std::time::Duration::from_millis(5100));
 }
 
 async fn init_sctp_server_thread() -> std::io::Result<()> {
