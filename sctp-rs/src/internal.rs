@@ -31,7 +31,7 @@ pub(crate) fn sctp_bindx_internal(
     addrs: &[SocketAddr],
     flags: BindxFlags,
 ) -> std::io::Result<()> {
-    log::debug!("Binding following addresses to socket: {:#?}", addrs);
+    log::debug!("Binding following addresses to socket: {:?}", addrs);
 
     let mut addrs_u8: Vec<u8> = vec![];
 
