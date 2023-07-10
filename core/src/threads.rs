@@ -17,39 +17,39 @@ pub fn thread_init() {
 }
 
 async fn init_sctp_server_thread() -> std::io::Result<()> {
-    tokio::spawn(async {
-        println!("init_sctp_server_thread start !");
 
-        let server_address: std::net::SocketAddr = "127.0.0.1:38412".parse().unwrap();
-        println!("init_sctp_server_thread start 1!");
+    let server_address: std::net::SocketAddr = "192.168.2.222:38472".parse().unwrap();
+    let server_socket = sctp_rs::Socket::new_v4(sctp_rs::SocketToAssociation::OneToOne)?;
+    server_socket.sctp_bindx(&[server_address], sctp_rs::BindxFlags::Add)?;
 
-        let server_socket = sctp_rs::Socket::new_v4(sctp_rs::SocketToAssociation::OneToOne)?;
-        println!("init_sctp_server_thread start 2!");
+    let server_socket = server_socket.listen(10)?;
+    let (accepted, _client_address) = server_socket.accept().await?;
 
-        server_socket.sctp_bindx(&[server_address], sctp_rs::BindxFlags::Add)?;
-        println!("init_sctp_server_thread start 3!");
-
-        let server_socket = server_socket.listen(10)?;
-        println!("init_sctp_server_thread start 4!");
-
-        let (accepted, _client_address) = server_socket.accept().await?;
-        println!("init_sctp_server_thread start 2 !");
-        loop {
-            let received = accepted.sctp_recv().await?;
-            match received {
-                sctp_rs::NotificationOrData::Notification(notification)=> {
-                    println!("SCTP Server received Notification!");
-                    // Porcess Notification
-                },
-                sctp_rs::NotificationOrData::Data(data) => {
-                    println!("SCTP Server received Data!");
-                    // Process Data
+    loop {
+        let received = accepted.sctp_recv().await?;
+        match received {
+            sctp_rs::NotificationOrData::Notification(notification)=> {
+                println!("SCTP Server received Notification!");
+                // Porcess Notification
+            },
+            sctp_rs::NotificationOrData::Data(data) => {
+                println!("SCTP Server received Data!");
+                // Process Data  
+                if data.payload.is_empty() {
+                    break;
                 }
+                let response = format!("pong: {}", String::from_utf8(data.payload).unwrap());
+                let send_data = sctp_rs::SendData {
+                    payload: response.as_bytes().to_vec(),
+                    snd_info: None,
+                };
+                accepted.sctp_send(send_data).await?;
+
             }
-            println!("init_sctp_server_thread end !");
         }
-        Ok::<(), Error>(())
-    });
+        println!("init_sctp_server_thread end !");
+
+    }
     Ok::<(), Error>(())
 }
 

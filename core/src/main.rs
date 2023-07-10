@@ -11,7 +11,7 @@ fn main() {
 
     let _guard = log::init();
 
-    threads::thread_init();
+    let _threads = threads::thread_init();
 
     println!("CU end !");
 }
