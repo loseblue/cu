@@ -1,6 +1,7 @@
 use tokio::runtime;
 use sctp_rs::{self};
 use std::io::Error;
+use sctp;
 
 
 pub fn thread_init() {
@@ -11,12 +12,12 @@ pub fn thread_init() {
         .unwrap();
 
     rt.block_on(async {
-        let _ = init_sctp_server_thread().await;
-        // let _ = iinit_sctp_client_thread().await;
+        let _ = init_f1ap_sctp_server_thread().await;
+        let _ = init_ngap_sctp_client_thread().await;
     });
 }
 
-async fn init_sctp_server_thread() -> std::io::Result<()> {
+async fn init_f1ap_sctp_server_thread() -> std::io::Result<()> {
 
     let server_address: std::net::SocketAddr = "192.168.2.222:38472".parse().unwrap();
     let server_socket = sctp_rs::Socket::new_v4(sctp_rs::SocketToAssociation::OneToOne)?;
@@ -34,26 +35,16 @@ async fn init_sctp_server_thread() -> std::io::Result<()> {
             },
             sctp_rs::NotificationOrData::Data(data) => {
                 println!("SCTP Server received Data!");
-                // Process Data  
-                if data.payload.is_empty() {
-                    break;
-                }
-                let response = format!("pong: {}", String::from_utf8(data.payload).unwrap());
-                let send_data = sctp_rs::SendData {
-                    payload: response.as_bytes().to_vec(),
-                    snd_info: None,
-                };
-                accepted.sctp_send(send_data).await?;
+                // Process Data
 
+                sctp::f1ap_server_process(data.payload);
             }
         }
-        println!("init_sctp_server_thread end !");
-
     }
     Ok::<(), Error>(())
 }
 
-async fn init_sctp_client_thread() -> std::io::Result<()> {
+async fn init_ngap_sctp_client_thread() -> std::io::Result<()> {
     println!("init_sctp_client_thread start !");
 
     let server_address: std::net::SocketAddr = "192.168.2.200:38412".parse().unwrap();
