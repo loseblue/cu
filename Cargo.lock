@@ -146,7 +146,7 @@ dependencies = [
  "anyhow",
  "chrono",
  "core_affinity",
- "sctp",
+ "f1ap",
  "sctp-rs",
  "serde_json",
  "tokio",
@@ -190,6 +190,10 @@ checksum = "5a22b2d63d4d1dc0b7f1b6b2747dd0088008a9be28b6ddf0b1e7d335e3037294"
 dependencies = [
  "cfg-if",
 ]
+
+[[package]]
+name = "f1ap"
+version = "0.1.0"
 
 [[package]]
 name = "gimli"
@@ -459,10 +463,6 @@ name = "scopeguard"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d29ab0c6d3fc0ee92fe66e2d99f700eab17a8d57d1c1d3b748380fb20baa78cd"
-
-[[package]]
-name = "sctp"
-version = "0.1.0"
 
 [[package]]
 name = "sctp-rs"
