@@ -1,7 +1,7 @@
 use tokio::runtime;
 use sctp_rs::{self};
 use std::io::Error;
-use f1ap;
+use f1ap_c;
 
 
 pub fn thread_init() {
@@ -37,7 +37,7 @@ async fn init_f1ap_sctp_server_thread() -> std::io::Result<()> {
                 println!("SCTP Server received Data!");
                 // Process Data
 
-                f1ap::f1ap_server_process(data.payload);
+                f1ap_c::f1ap_server_process(data.payload);
             }
         }
     }

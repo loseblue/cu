@@ -146,7 +146,7 @@ dependencies = [
  "anyhow",
  "chrono",
  "core_affinity",
- "f1ap",
+ "f1ap_c",
  "sctp-rs",
  "serde_json",
  "tokio",
@@ -192,7 +192,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "f1ap"
+name = "f1ap_c"
 version = "0.1.0"
 
 [[package]]
