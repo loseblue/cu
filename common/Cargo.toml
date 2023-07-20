@@ -1,5 +1,5 @@
 [package]
-name = "core"
+name = "common"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,8 +13,4 @@ tracing-subscriber = "0.3.17"
 tracing-appender = "0.2.2"
 anyhow = "1.0.71"
 tokio = { version = "1.29.0", features = ["full"] }
-core_affinity = "0.8.0"
-common = { path = "../common" }
 
-sctp-rs = { path = "../sctp-rs" }
-f1ap_c = { path = "../f1ap_c" }

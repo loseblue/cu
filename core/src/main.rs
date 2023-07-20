@@ -1,7 +1,8 @@
 
-use tracing::{info};
 mod log;
-mod threads;
+use tracing::{info};
+
+mod threads;    
 
 
 
@@ -9,7 +10,7 @@ fn main() {
     println!("CU start !");
     info!("CU start !");
 
-    let _guard = log::init();
+    let _guard = common::log::init();
 
     let _threads = threads::thread_init();
 
